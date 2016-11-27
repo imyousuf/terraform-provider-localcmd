@@ -34,10 +34,12 @@ func doExec() *schema.Resource {
 			stdout_attr_key: {
 				Type:     schema.TypeString,
 				Computed: true,
+				Sensitive: false,
 			},
 			stderr_attr_key: {
 				Type:     schema.TypeString,
 				Computed: true,
+				Sensitive: false,
 			},
 		},
 	}
