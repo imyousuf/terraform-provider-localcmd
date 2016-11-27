@@ -5,6 +5,7 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 	"bytes"
 	"os/exec"
+	"log"
 )
 
 const command_attr_key string = "command"
@@ -18,7 +19,10 @@ func executeCommand(data *schema.ResourceData, meta interface{}) error {
 	var errOut bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &errOut
-	cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 	data.Set(stdout_attr_key, out.String())
 	data.Set(stderr_attr_key, errOut.String())
 	return nil
