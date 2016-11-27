@@ -6,6 +6,9 @@ import (
 	"bytes"
 	"os/exec"
 	"log"
+	"crypto/md5"
+	"io"
+	"fmt"
 )
 
 const command_attr_key string = "command"
@@ -29,6 +32,9 @@ func executeCommand(data *schema.ResourceData, meta interface{}) error {
 	log.Printf("StdErr %s", errOut.String())
 	data.Set(stdout_attr_key, out.String())
 	data.Set(stderr_attr_key, errOut.String())
+	h := md5.New()
+	io.WriteString(h, out.String())
+	data.SetId(fmt.Sprintf("%x", h.Sum(nil)))
 	return nil
 }
 
@@ -44,11 +50,13 @@ func doExec() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 				Sensitive: false,
+				ForceNew: true,
 			},
 			stderr_attr_key: {
 				Type:     schema.TypeString,
 				Computed: true,
 				Sensitive: false,
+				ForceNew: true,
 			},
 		},
 	}
