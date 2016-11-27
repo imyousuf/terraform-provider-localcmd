@@ -1,10 +1,8 @@
 package main
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"os/exec"
-	//"strings"
 )
 
 func main() {
@@ -14,11 +12,11 @@ func main() {
 	cmd.Stdout = &out
 	cmd.Stderr = &errOut
 	err := cmd.Run()
-	fmt.Printf("%s\n", errOut.String())
+	log.Println("Done running")
 	if err != nil {
-		fmt.Printf("H1\n")
+		log.Printf("Error: %s", errOut.String())
 		log.Fatal(err)
-		fmt.Printf("H2")
 	}
-	fmt.Printf("in all caps: %q\n", out.String())
+	log.Printf("StdOut %s", out.String())
+	log.Printf("StdErr %s", errOut.String())
 }

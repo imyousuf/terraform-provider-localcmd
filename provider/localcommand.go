@@ -20,9 +20,13 @@ func executeCommand(data *schema.ResourceData, meta interface{}) error {
 	cmd.Stdout = &out
 	cmd.Stderr = &errOut
 	err := cmd.Run()
+	log.Println("Done running")
 	if err != nil {
+		log.Printf("Error: %s", errOut.String())
 		log.Fatal(err)
 	}
+	log.Printf("StdOut %s", out.String())
+	log.Printf("StdErr %s", errOut.String())
 	data.Set(stdout_attr_key, out.String())
 	data.Set(stderr_attr_key, errOut.String())
 	return nil
