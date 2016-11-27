@@ -50,7 +50,7 @@ func ProvideLocalCommand() terraform.ResourceProvider {
 		ResourcesMap: map[string]*schema.Resource{},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"exec": doExec(),
+			"localcmd_exec": doExec(),
 		},
 	}
 }
