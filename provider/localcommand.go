@@ -19,7 +19,7 @@ func executeCommand(data *schema.ResourceData, meta interface{}) error {
 	cmd.Stderr = &errOut
 	cmd.Run()
 	data.Set(stdout_attr_key, out.String())
-	data.Set(stderr_attr_key, out.String())
+	data.Set(stderr_attr_key, errOut.String())
 	return nil
 }
 
