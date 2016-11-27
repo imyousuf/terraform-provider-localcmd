@@ -12,7 +12,8 @@ const stdout_attr_key string = "stdout"
 const stderr_attr_key string = "stderr"
 
 func executeCommand(data *schema.ResourceData, meta interface{}) error {
-	cmd := exec.Command("bash", "-c", data.GetOk(command_attr_key))
+	passed_cmd, _ := data.Get(command_attr_key).(string)
+	cmd := exec.Command("bash", "-c", passed_cmd)
 	var out bytes.Buffer
 	var errOut bytes.Buffer
 	cmd.Stdout = &out
